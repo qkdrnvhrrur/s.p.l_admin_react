@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   LineChart,
   Line,
@@ -9,7 +9,7 @@ import {
 } from 'recharts';
 
 const textMap = {
-  sales: '매출액(K)',
+  sales: '매출액(W)',
   usage: '이용률(%)',
 };
 const colorMap = {

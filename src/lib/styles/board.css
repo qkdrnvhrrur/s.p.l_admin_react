@@ -36,3 +36,7 @@ i {
 .parking{
     color:black;
 }
+
+i{
+    cursor:pointer;
+}

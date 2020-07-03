@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -6,6 +6,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { logout } from '../../modules/user';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -21,27 +23,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FlexBox = styled.div`
-  display: display: inline-flex
+  display: flex;
   justify-content: space-between;
+    align-items:flex-end;
 `;
-const StyledDiv = styled.div`
-  vertical-align: bottom;
-  display: inline-block;
+
+const StyledA=styled.a`
+    margin-right:1rem;
+    position:relative;
+    top:0.7rem;
+    cursor:pointer;
+    text-decoration:underline;
 `;
 
 const Header = () => {
   const classes = useStyles();
+    const dispatch=useDispatch();
+    const onLogout=useCallback(()=>{
+        dispatch(logout());
+    }, [dispatch]);
+    const {user}=useSelector(({user})=>({user:user.user}));
 
   return (
     <>
       <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+      <FlexBox>
+      <Toolbar>
           <Typography variant="h3" noWrap>
             <Link to="/" className={classes.link}>
               코오롱 주차장
             </Link>
           </Typography>
         </Toolbar>
+      {user&&<StyledA onClick={()=>onLogout()}>로그아웃</StyledA>}
+      </FlexBox>
       </AppBar>
     </>
   );

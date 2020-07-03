@@ -4,7 +4,7 @@ import { getParking } from '../../modules/board';
 import BoardTable from '../../components/board/BoardTable';
 import socketio from 'socket.io-client';
 
-const socket = socketio.connect('http://192.9.44.97:65002/');
+const socket = socketio.connect('http://192.9.44.170:65002/');
 
 const BoardForm = () => {
   const dispatch = useDispatch();

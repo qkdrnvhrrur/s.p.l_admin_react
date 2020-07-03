@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, register } from '../../modules/auth';
 import SettingForm from '../../components/setting/SettingForm';
@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { logout } from '../../modules/user';
 
 const RegisterForm = ({ history }) => {
-  const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
@@ -36,13 +35,9 @@ const RegisterForm = ({ history }) => {
 
       const { oldPassword, newPassword, newConfirm } = form;
       if ([oldPassword, newPassword, newConfirm].includes('')) {
-        setError('빈 칸을 모두 입력하세요.');
-
         return;
       }
       if (newPassword !== newConfirm) {
-        setError('비밀번호가 일치하지 않습니다.');
-
         dispatch(initializeForm('register'));
 
         return;
@@ -62,12 +57,10 @@ const RegisterForm = ({ history }) => {
   useEffect(() => {
     if (authError) {
       if (authError.response.status === 401) {
-        setError('비밀번호 오류');
 
         return;
       }
 
-      setError('비밀번호 변경 실패');
       return;
     }
     if (
